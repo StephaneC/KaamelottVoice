@@ -1,4 +1,4 @@
-import * as sounds from "./sounds.json";
+const sounds = require("./data.json");
 import { getRandom } from "../utils";
 
 const baseUrl = "https://kaamelott-soundboard.2ec0b4.fr/sounds/"

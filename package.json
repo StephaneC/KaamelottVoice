@@ -20,11 +20,8 @@
     "SkillActionLib": "git+https://github.com/StephaneC/ActionSkillLib.git#5630d86",
     "ask-sdk": "2.7.0",
     "body-parser": "^1.19.0",
-    "firebase-admin": "^9.3.0",
-    "firebase-functions": "^3.11.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
-    "serverless": "^2.8.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.11",

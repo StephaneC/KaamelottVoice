@@ -21,6 +21,27 @@ export const IntentHandler: IHandler = {
         console.log('HelpIntent');
         return input.responseBuilder.getResponse();
     },
+    'AMAZON.PauseIntent': async function (input: HandlerInput): Promise<Response> {
+        return this['AMAZON.StopIntent'](input);
+    },
+    'AMAZON.StopIntent': async function (input: HandlerInput): Promise<Response> {
+        const p = new Plateform(input);
+        p.template.stopAudio(true);
+        return input.responseBuilder.getResponse();
+    },
+    'AMAZON.ResumeIntent': async function (input: HandlerInput): Promise<Response> {
+        console.log('ResumeIntent');
+        return this['LaunchRequest'](input);
+    },
+    'AMAZON.NextIntent': async function (input: HandlerInput): Promise<Response> {
+        input.responseBuilder
+        .speak('Cette fonctionnalité n\'est pas disponible')
+        .withShouldEndSession(false);
+        return input.responseBuilder.getResponse();
+    },
+    'AMAZON.PreviousIntent': async function (input: HandlerInput): Promise<Response> {
+        return this['AMAZON.PreviousIntent'](input);
+    },
     'CaracterOnlyIntent': async function (input: HandlerInput): Promise<Response> {
         return this['CaracterSoundsIntent'](input);
     },

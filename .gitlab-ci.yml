@@ -28,37 +28,50 @@ npmInstall:
 #        - npm install -g standard
 #        - npm run-script lint
 
-prod-home:
+deploy:prod-skill:
   stage: deploy
   dependencies:
-    - build
+    - npmInstall
   script:
-    - sh ./scripts/install-gcloud.sh
+    - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - npm install -g serverless@1.36.3
     - ls
-    - PATH="google-cloud-sdk/bin:${PATH}"
-    - gcloud functions deploy homeFct --entry-point homeHandler --project $PROJECT --region europe-west1 --runtime nodejs10 --trigger-http --allow-unauthenticated
-  environment:
-    name: production
+#    - mv build .build
+    - sls deploy -v -s prod --region ${REGION:-"eu-west-1"} -f skill
   when: manual
   only:
-    - master
-
-
-prod-skill:
+  - master
+deploy:prod-home:
   stage: deploy
   dependencies:
-    - build
+    - npmInstall
   script:
-    - sh ./scripts/install-gcloud.sh
+    - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - npm install -g serverless@1.36.3
     - ls
-    - PATH="google-cloud-sdk/bin:${PATH}"
-    - gcloud functions deploy skillFct --entry-point skillHandler --project $PROJECT --region europe-west1 --runtime nodejs10 --trigger-http --allow-unauthenticated
-  environment:
-    name: production
+#    - mv build .build
+    - sls deploy -v -s prod --region ${REGION:-"eu-west-1"} -f home
   when: manual
   only:
-    - master
-
+  - master
+  
+deploy:prod:
+  stage: deploy
+  dependencies:
+    - npmInstall
+  script:
+    - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - npm install -g serverless@1.36.3
+    - ls
+#    - mv build .build
+    - sls deploy -v -s prod --region ${REGION:-"eu-west-1"}
+  when: manual
+  only:
+  - master
+  
 unittesting:
     stage: test
     # use the artifcats of the 'npmInstall' job

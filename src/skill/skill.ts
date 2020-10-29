@@ -1,5 +1,3 @@
-const functions = require('firebase-functions');
-
 import { SkillBuilders } from 'ask-sdk';
 import { RequestEnvelope, ResponseEnvelope } from 'ask-sdk-model';
 import { AudioHandler } from './AudioHandler';

@@ -8,7 +8,6 @@ variables:
 stages:
     - install # install all npm dependencies
     - test    # execute unit tests
-    - build
     - deploy  # stage for deploying
 
 
@@ -29,20 +28,6 @@ npmInstall:
 #        - npm install -g standard
 #        - npm run-script lint
 
-build:
-    stage: build
-    # use the artifcats of the 'npmInstall' job
-    dependencies:
-        - npmInstall
-    script:
-        - rm -rf test
-        - npm install -g typescript 
-        # install dev-dependency mocha
-        - tsc
-        - ls
-    artifacts:
-        untracked: true
-
 prod-home:
   stage: deploy
   dependencies:
@@ -56,7 +41,7 @@ prod-home:
     name: production
   when: manual
   only:
-    - main
+    - master
 
 
 prod-skill:
@@ -72,7 +57,7 @@ prod-skill:
     name: production
   when: manual
   only:
-    - main
+    - master
 
 unittesting:
     stage: test

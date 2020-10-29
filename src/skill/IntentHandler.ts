@@ -11,12 +11,10 @@ import { IHandler } from './IHandler';
 export const IntentHandler: IHandler = {
     // launch request and play intent have the same handler
     'LaunchRequest': async function (input: HandlerInput): Promise<Response> {
-        //const p = new Plateform(input);
         console.log('LaunchRequest');
         const p = new Plateform(input);
         playRandomSound(p);
-        p.template.simpleMessage('Bienvenue sur KaamelottVoices', null, false);
-        console.log('LaunchRequest end');
+        //p.template.simpleMessage('Bienvenue sur KaamelottVoices', null, false);
         return input.responseBuilder.getResponse();
     },
     'AMAZON.HelpIntent': async function (input: HandlerInput): Promise<Response> {

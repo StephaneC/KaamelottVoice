@@ -6,7 +6,7 @@ import { assert } from 'chai';
 
 describe('Sounds tests', () => {
 
-   /* describe('getRandomSound ', () => {
+   describe('getRandomSound ', () => {
         it('Ok', () => {
             assert.isNotNull(getRandomSound());
         });
@@ -20,5 +20,5 @@ describe('Sounds tests', () => {
             assert.equal(s.episode, 'Livre II, 03 - Le Dialogue de Paix');
             assert.equal(s.character, 'Arthur - Le Roi Burgonde');
         });
-    });*/
+    });
 });

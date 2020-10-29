@@ -43,9 +43,9 @@ region: eu-west-3
 
 functions:
   skill:
-    handler: skill.handler
+    handler: skillHandler
   home:
-    handler: home.handler
+    handler: homeHandler
     events:
       - http:
           path: fulfillment

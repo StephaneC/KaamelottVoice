@@ -35,7 +35,7 @@ deploy:prod-skill:
   script:
     - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
     - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    - npm install -g serverless@1.36.3
+    - npm install -g serverless
     - ls
 #    - mv build .build
     - sls deploy -v -s prod --region ${REGION:-"eu-west-1"} -f skill
@@ -49,7 +49,7 @@ deploy:prod-home:
   script:
     - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
     - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    - npm install -g serverless@1.36.3
+    - npm install -g serverless
     - ls
 #    - mv build .build
     - sls deploy -v -s prod --region ${REGION:-"eu-west-3"} -f home
@@ -64,7 +64,7 @@ deploy:prod:
   script:
     - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
     - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    - npm install -g serverless@1.36.3
+    - npm install -g serverless
     - ls
 #    - mv build .build
     - sls deploy -v -s prod --region ${REGION:-"eu-west-3"}

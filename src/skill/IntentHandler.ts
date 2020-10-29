@@ -4,7 +4,7 @@
 import { HandlerInput } from 'ask-sdk';
 import { Response } from 'ask-sdk-model';
 import { Plateform } from 'SkillActionLib/dist';
-import { playRandomSound } from '../commons/Intent.business';
+import { playRandomSound, playCaracterSound } from '../commons/Intent.business';
 import { IHandler } from './IHandler';
 //import { Plateform } from 'SkillActionLib/dist';
 
@@ -20,7 +20,15 @@ export const IntentHandler: IHandler = {
     'AMAZON.HelpIntent': async function (input: HandlerInput): Promise<Response> {
         console.log('HelpIntent');
         return input.responseBuilder.getResponse();
-
+    },
+    'CaracterOnlyIntent': async function (input: HandlerInput): Promise<Response> {
+        return this['CaracterSoundsIntent'](input);
+    },
+    'CaracterSoundsIntent': async function (input: HandlerInput): Promise<Response> {
+        console.log('CaracterSoundsIntent');
+        const p = new Plateform(input);
+        playCaracterSound(p);
+        return input.responseBuilder.getResponse();
     },
     'SessionEndedRequest': async function (input: HandlerInput): Promise<Response> {
         console.log('SessionEndedRequest');

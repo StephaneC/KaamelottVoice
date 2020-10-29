@@ -7,4 +7,4 @@ const app = conversation()
 // Create an app instance
 configureHandler(app);
 
-exports.homeHandler = functions.https.onRequest(app)
+export const handler = functions.https.onRequest(app)

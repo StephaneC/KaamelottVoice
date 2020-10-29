@@ -6,7 +6,7 @@ import { IntentHandler } from './IntentHandler';
 import { CustomRequestHandler } from './RequestHandler';
 
 
-export const skillHandler = async (request, response) => {
+export async function handler(event: RequestEnvelope, context: any, callback: any): Promise<void> {
     console.log('------ skill handler start here ------');
     const factory = SkillBuilders.standard()
         .addRequestHandlers(
@@ -22,16 +22,16 @@ export const skillHandler = async (request, response) => {
     try {
 
         console.log('Will invoke skill')
-        const responseEnvelope: ResponseEnvelope = await skill.invoke(request.body);
+        const responseEnvelope: ResponseEnvelope = await skill.invoke(event, context);
         
         console.log('invoked skill')
         console.log(JSON.stringify(responseEnvelope, null, 2));
 
-        response.send(responseEnvelope);
+        return callback(null, responseEnvelope);
 
     } catch (error) {
         console.log(JSON.stringify(error, null, 2));
-        response.send({error: "Error happened"});
+        return callback(error);
 
     }
 };

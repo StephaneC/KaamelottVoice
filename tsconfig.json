@@ -9,11 +9,16 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": ".build",
+        "rootDir": "./",
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "allowSyntheticDefaultImports": true      
     },    
     "include": [
-        "src/**/*.ts"
+        "src/**/*.ts", "index.ts"
+    ],
+    "exclude": [
+        "test/**/*.ts",
+        "node_modules"
     ]
 }

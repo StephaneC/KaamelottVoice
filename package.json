@@ -21,7 +21,7 @@
     "ask-sdk": "2.7.0",
     "body-parser": "^1.19.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.5",
+    "request-promise": "^4.2.5"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.11",

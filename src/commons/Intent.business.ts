@@ -10,6 +10,7 @@ export const playRandomSound = (p: Plateform) => {
 export const playCaracterSound = (p: Plateform, character?: string) => {
     if (!character)
         character = p.entities.get('caracter');
+    console.log('playCaracterSound ' + character);
     if (!character) {
         //FIXME refactor language
         p.template.simpleMessage('Je n\'ai pas compris le personnage demandé. Pouvez vous répéter ou essayer un autre personnage?', ' Pouvez vous répéter ou essayer un autre personnage?', false);

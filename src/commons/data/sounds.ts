@@ -21,10 +21,14 @@ export const getSound = (file: string): Sound => {
     return sounds.find(s => s.file === file);
 }
 
-export const getCaracterSound = (caracter: string): Sound => {
-    return sounds.find(s => s.caracter === caracter);
+export const getCaracterSound = (character: string): Sound => {
+    if (!character) {
+        return getRandomSound();
+    }
+    const byCar = sounds.filter(s => s.character.toLowerCase() === character.toLowerCase());
+    console.log({byCar});
+    return getRandom(byCar);
 }
-
 
 export const getRandomSound = (): Sound => {
     const s = getRandom(sounds);

@@ -1,7 +1,7 @@
 'use strict';
 
 import 'mocha'
-import { getSound, getRandomSound } from '../../../src/commons/data/sounds';
+import { getSound, getRandomSound, getCaracterSound } from '../../../src/commons/data/sounds';
 import { assert } from 'chai';
 
 describe('Sounds tests', () => {
@@ -9,6 +9,13 @@ describe('Sounds tests', () => {
    describe('getRandomSound ', () => {
         it('Ok', () => {
             assert.isNotNull(getRandomSound());
+        });
+    });
+
+    describe('getCaracterSound ', () => {
+        it('Ok', () => {
+            assert.isNotNull(getCaracterSound('Gauvain'));
+            assert.isNull(getCaracterSound('Dummy'));
         });
     });
 

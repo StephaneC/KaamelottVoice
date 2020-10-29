@@ -1,0 +1,84 @@
+# define a default docker image for all jobs
+# from https://github.com/trek10inc/gitlab-boilerplate-injector/blob/master/.gitlab-ci.yml
+image: node:latest
+
+variables:
+    PROJECT: "kaamelottvoices"
+
+stages:
+    - install # install all npm dependencies
+    - test    # execute unit tests
+    - build
+    - deploy  # stage for deploying
+
+
+npmInstall:
+    stage: install
+    script:
+        - npm install
+    # artifacts describe the result of the stage
+    # that can be used in consecutive stages
+    artifacts:
+        untracked: true
+
+
+#linting:
+#    stage: test
+#    script:
+#        # install standardjs for linting
+#        - npm install -g standard
+#        - npm run-script lint
+
+build:
+    stage: build
+    # use the artifcats of the 'npmInstall' job
+    dependencies:
+        - npmInstall
+    script:
+        - rm -rf test
+        - npm install -g typescript 
+        # install dev-dependency mocha
+        - tsc
+        - ls
+    artifacts:
+        untracked: true
+
+prod-home:
+  stage: deploy
+  dependencies:
+    - build
+  script:
+    - sh ./scripts/install-gcloud.sh
+    - ls
+    - PATH="google-cloud-sdk/bin:${PATH}"
+    - gcloud functions deploy homeFct --entry-point homeHandler --project $PROJECT --region europe-west1 --runtime nodejs10 --trigger-http --allow-unauthenticated
+  environment:
+    name: production
+  when: manual
+  only:
+    - main
+
+
+prod-skill:
+  stage: deploy
+  dependencies:
+    - build
+  script:
+    - sh ./scripts/install-gcloud.sh
+    - ls
+    - PATH="google-cloud-sdk/bin:${PATH}"
+    - gcloud functions deploy skillFct --entry-point skillHandler --project $PROJECT --region europe-west1 --runtime nodejs10 --trigger-http --allow-unauthenticated
+  environment:
+    name: production
+  when: manual
+  only:
+    - main
+
+unittesting:
+    stage: test
+    # use the artifcats of the 'npmInstall' job
+    dependencies:
+        - npmInstall
+    script:
+        # install dev-dependency mocha
+        - npm test

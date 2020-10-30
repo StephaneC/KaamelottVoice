@@ -1,5 +1,5 @@
 # KaamelottVoice
-Kaamelott sur vos enceinte préférés
+Kaamelott sur vos enceinte préférées.
 
 Attention, _il s'agit d'un produit non officiel. Si des ayants droits lisent ceci et ont pour objectif de faire supprimer le projet, prenez plutôt contact avec moi pour le déployer de manière officielle. Le code est là et au besoin, je vous accompagnerais avec plaisirs_.
 

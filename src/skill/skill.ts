@@ -21,10 +21,9 @@ export async function handler(event: RequestEnvelope, context: any, callback: an
 
     try {
 
-        console.log('Will invoke skill')
+        console.log('Will invoke skill', JSON.stringify(event.request))
         const responseEnvelope: ResponseEnvelope = await skill.invoke(event, context);
         
-        console.log('invoked skill')
         console.log(JSON.stringify(responseEnvelope, null, 2));
 
         return callback(null, responseEnvelope);

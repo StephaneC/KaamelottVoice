@@ -4,9 +4,7 @@ import { HandlerInput } from 'ask-sdk';
 import { interfaces, Response } from 'ask-sdk-model';
 import { Plateform } from 'SkillActionLib/dist';
 import { IHandler } from './IHandler';
-import { playRandomSound, playCaracterSound } from '../commons/Intent.business';
-import { getCaracterSound, getRandomSound } from '../commons/data/sounds';
-import { getRandom } from '../commons/utils';
+import { nextSound } from '../commons/Intent.business';
 
 const appId = process.env.RADIO;
 
@@ -47,15 +45,7 @@ export const AudioHandler: IHandler = {
          * This should not happen on live streams
          */
         console.log("Playback nearly finished");
-        const p = new Plateform(input);
-        const character = p.entities.get('character');
-        let sound;
-        if (character) {
-            sound = getCaracterSound(character);
-        } else {
-            sound = getRandomSound();
-        }
-        p.template.playAudio(sound.file, sound.title, `${sound.episode} - ${sound.character}`, null, null, sound.file, 0);
+        nextSound(new Plateform(input));
         return Promise.resolve(input.responseBuilder.getResponse());
 
     },

@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "@assistant/conversation": "^3.2.0",
-    "SkillActionLib": "git+https://github.com/StephaneC/ActionSkillLib.git#5630d86",
+    "SkillActionLib": "git+https://github.com/StephaneC/ActionSkillLib.git#ae55ca5",
     "ask-sdk": "2.7.0",
     "body-parser": "^1.19.0",
     "request": "^2.88.0",

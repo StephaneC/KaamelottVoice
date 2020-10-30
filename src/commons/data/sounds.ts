@@ -27,7 +27,7 @@ export const getCaracterSound = (character: string): Sound => {
     }
     const byCar = sounds.filter(s => s.character.toLowerCase() === character.toLowerCase());
     console.log({byCar});
-    return getRandom(byCar);
+    return mapUrl(getRandom(byCar));
 }
 
 export const getRandomSound = (): Sound => {

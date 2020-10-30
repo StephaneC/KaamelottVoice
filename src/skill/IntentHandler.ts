@@ -4,7 +4,7 @@
 import { HandlerInput } from 'ask-sdk';
 import { Response } from 'ask-sdk-model';
 import { Plateform } from 'SkillActionLib/dist';
-import { playRandomSound, playCaracterSound } from '../commons/Intent.business';
+import { playRandomSound, playCaracterSound, nextSound } from '../commons/Intent.business';
 import { IHandler } from './IHandler';
 //import { Plateform } from 'SkillActionLib/dist';
 
@@ -19,7 +19,11 @@ export const IntentHandler: IHandler = {
     },
     'AMAZON.HelpIntent': async function (input: HandlerInput): Promise<Response> {
         console.log('HelpIntent');
-        return input.responseBuilder.getResponse();
+        input.responseBuilder
+            .speak('Avec répliques de Kaamelott, profitez des méilleurs sons de Kaamelott sur Alexa.')
+            .withShouldEndSession(true);
+
+            return input.responseBuilder.getResponse();
     },
     'AMAZON.PauseIntent': async function (input: HandlerInput): Promise<Response> {
         return this['AMAZON.StopIntent'](input);
@@ -34,13 +38,23 @@ export const IntentHandler: IHandler = {
         return this['LaunchRequest'](input);
     },
     'AMAZON.NextIntent': async function (input: HandlerInput): Promise<Response> {
-        input.responseBuilder
-        .speak('Cette fonctionnalité n\'est pas disponible')
-        .withShouldEndSession(false);
+        nextSound(new Plateform(input))
         return input.responseBuilder.getResponse();
     },
+    'AMAZON.RepeatIntent': async function (input: HandlerInput): Promise<Response> {
+        input.responseBuilder
+        .speak('Cette fonctionnalité n\'est pas disponible.')
+        .withShouldEndSession(true);
+        return input.responseBuilder.getResponse();
+    },
+    'AMAZON.StartOverIntent': async function (input: HandlerInput): Promise<Response> {
+        return this['AMAZON.ResumeIntent'](input);
+    },
+    'AMAZON.CancelIntent': async function (input: HandlerInput): Promise<Response> {
+        return this['AMAZON.StopIntent'](input);
+    },
     'AMAZON.PreviousIntent': async function (input: HandlerInput): Promise<Response> {
-        return this['AMAZON.PreviousIntent'](input);
+        return this['AMAZON.RepeatIntent'](input);
     },
     'CaracterOnlyIntent': async function (input: HandlerInput): Promise<Response> {
         return this['CaracterSoundsIntent'](input);
@@ -65,11 +79,6 @@ export const IntentHandler: IHandler = {
     'Unhandled': async function (input: HandlerInput): Promise<Response> {
         console.log('Unhandled');
         return Promise.resolve(input.responseBuilder.withShouldEndSession(true).getResponse());
-    },
-    'AMAZON.RepeatIntent': async function (input: HandlerInput): Promise<any> {
-        console.log('RepeatIntent');
-        return Promise.resolve(input.responseBuilder.getResponse());
-
     },
     'AMAZON.FallbackIntent': async function (input: HandlerInput): Promise<Response> {
         console.log('FallbackIntent');

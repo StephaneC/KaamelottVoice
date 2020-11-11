@@ -11,7 +11,7 @@ export class Sound {
 }
 
 const mapUrl = (s: Sound): Sound => {
-    if (s) {
+    if (s && !s.file.startsWith("http")) {
         s.file = baseUrl + s.file;
     }
     return s;
